@@ -1,0 +1,25 @@
+{% extends "webapp/header.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-6 text-center">
+		<form method="post" id='form' enctype="multipart/form-data">
+			{% csrf_token %}
+			<label for="file-input"><i class="fas fa-upload fa-7x"></i></label>
+			<input type="file" id='file-input' name="myfile" style="display: none;">
+		</form>
+	</div>
+	<div class="col-sm-6 text-center">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<label for="webcam"><i class="fas fa-camera fa-7x"></i></label>
+			<input type="file" id='webcam' name="webcam" style="display: none;">
+		</form>
+	</div>
+	<img src="{{img}}" alt="">
+</div>
+<br><br>
+	{% if uploaded_file_url %}
+		<h2 class="text-center">Emotion is {{ prediction }}</h2>
+	{% endif %}
+
+{% endblock %}
