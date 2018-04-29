@@ -18,10 +18,10 @@ def detect(request):
         uploaded_file_url = fs.url(filename)
         prediction = recognizer.predict(filename)
         prediction = prediction.capitalize()
-        fs.delete(filename)
+        #fs.delete(filename)
         return render(request, 'emotiondetector/detector.html', {
             'uploaded_file_url': uploaded_file_url,
             'prediction': prediction,
-            'img': filename
+            'img': myfile.name
         })
     return render(request, 'emotiondetector/detector.html')

@@ -3,7 +3,7 @@ import glob
 import random
 import numpy as np
 
-emotions = ["neutral", "anger", "disgust", "happy", "sadness", "surprise"] #Emotion list
+emotions = ["angry", "disgust", "fear", "happy", "sadness", "surprise"] #Emotion list
 fishface = cv2.face.FisherFaceRecognizer_create() #Initialize fisher face classifier
 data = {}
 
@@ -59,8 +59,37 @@ def run_recognizer():
     return ((100*correct)/(correct + incorrect))
 
 def predict(file):
+    faceDet = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    faceDet_two = cv2.CascadeClassifier("haarcascade_frontalface_alt2.xml")
+    faceDet_three = cv2.CascadeClassifier("haarcascade_frontalface_alt.xml")
+    faceDet_four = cv2.CascadeClassifier("haarcascade_frontalface_alt_tree.xml")
+
     image = cv2.imread(file) #open image
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    face = faceDet.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5), flags=cv2.CASCADE_SCALE_IMAGE)
+    face_two = faceDet_two.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5), flags=cv2.CASCADE_SCALE_IMAGE)
+    face_three = faceDet_three.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5), flags=cv2.CASCADE_SCALE_IMAGE)
+    face_four = faceDet_four.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5), flags=cv2.CASCADE_SCALE_IMAGE)
+
+    #Go over detected faces, stop at first detected face, return empty if no face.
+    if len(face) == 1:
+        facefeatures = face
+    elif len(face_two) == 1:
+        facefeatures = face_two
+    elif len(face_three) == 1:
+        facefeatures = face_three
+    elif len(face_four) == 1:
+        facefeatures = face_four
+    else:
+        facefeatures = ""
+
+    #Cut and save face
+    for (x, y, w, h) in facefeatures: #get coordinates and size of rectangle containing face
+        gray = gray[y:y+h, x:x+w] #Cut the frame to size
+
+    gray = cv2.resize(gray, (350, 350))
+    cv2.imwrite('gray.png', gray)
     fishface = cv2.face.FisherFaceRecognizer_create()
     fishface.read('fishface')
     pred, conf = fishface.predict(gray)
