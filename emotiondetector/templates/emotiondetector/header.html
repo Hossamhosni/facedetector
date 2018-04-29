@@ -14,6 +14,7 @@
 			html,
 			body {
 			  height:100%;
+				overflow:hidden;
 				font-family: 'Yanone Kaffeesatz', sans-serif;
 				color: #ccc;
 				background-color: #333 !important
@@ -23,32 +24,31 @@
 			}
 		</style>
 	</head>
+	<body class="body">
+		<div id='particles-js'>
 
-	<body class="body" style="background-color:#f6f6f6">
-		<div class="container-fluid jumbotron colorclass" style="min-height:95%; ">
-			<div class="row">
-				  <div class="col-sm-12">
-					  <br>
-					  <center>
-					  	<h1>Emotion Detector</h1>
-					  </center>
-				  </div>
-			</div>
-
+		</div>
+		<div class="container-fluid jumbotron colorclass"   style="min-height:95%; ">
+			<div class="row" >
+			  <div class="col-sm-12">
 				  <br>
-					<br>
-				   <!-- Great, til you resize. -->
-					<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
-
-					<div class='container-fluid'>
-					<br><br>
-					   {% block content %}
-					   {% endblock %}
-					</div>
+				  <center>
+				  	<h1>Emotion Detector</h1>
+				  </center>
+			  </div>
+			</div>
+		  <br>
+			<br>
+			<div class='container-fluid'>
+			<br><br>
+		   	{% block content %}
+		   	{% endblock %}
+			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="{% static 'js/main.js' %}"></script>
 		<script src="{% static 'js/particles.min.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+
 	</body>
 
 </html>

@@ -8,7 +8,7 @@ import glob
 # Create your views here.
 
 def index(request):
-    return render(request, 'webapp/home.html')
+    return render(request, 'emotiondetector/home.html')
 
 def detect(request):
     if request.method == 'POST' and request.FILES['myfile']:
@@ -17,10 +17,11 @@ def detect(request):
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
         prediction = recognizer.predict(filename)
-        #fs.delete(filename)
-        return render(request, 'webapp/detector.html', {
+        prediction = prediction.capitalize()
+        fs.delete(filename)
+        return render(request, 'emotiondetector/detector.html', {
             'uploaded_file_url': uploaded_file_url,
             'prediction': prediction,
             'img': filename
         })
-    return render(request, 'webapp/detector.html')
+    return render(request, 'emotiondetector/detector.html')
