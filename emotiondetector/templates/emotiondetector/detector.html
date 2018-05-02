@@ -11,10 +11,10 @@
 		</form>
 	</div>
 	<div class="col-sm-6 text-center">
-		<form method="post" enctype="multipart/form-data">
+		<form method="post" enctype="multipart/form-data" action='webcam'>
 			{% csrf_token %}
 			<label for="webcam"><h3 class='text-center'>Detect from Webcam</h3><br><i class="fas fa-camera fa-7x"></i></label>
-			<input type="file" id='webcam' name="webcam" style="display: none;">
+			<input type="submit" id='webcam' name="webcam" style="display: none;">
 		</form>
 	</div>
 </div>
