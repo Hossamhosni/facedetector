@@ -3,7 +3,7 @@ import glob
 import random
 import numpy as np
 
-emotions = ["angry", "disgust", "fear", "happy", "sadness", "surprise"] #Emotion list
+emotions = ["disgust", "happy", "sadness", "surprise"] #Emotion list
 fishface = cv2.face.FisherFaceRecognizer_create() #Initialize fisher face classifier
 data = {}
 
@@ -88,10 +88,10 @@ def predict(file):
     for (x, y, w, h) in facefeatures: #get coordinates and size of rectangle containing face
         gray = gray[y:y+h, x:x+w] #Cut the frame to size
 
-    gray = cv2.resize(gray, (350, 350))
+    gray = cv2.resize(gray, (300, 300))
     cv2.imwrite('gray.png', gray)
     fishface = cv2.face.FisherFaceRecognizer_create()
-    fishface.read('fishface')
+    fishface.read('fishface.xml')
     pred, conf = fishface.predict(gray)
     prediction = emotions[pred]
     return prediction
